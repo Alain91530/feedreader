@@ -113,11 +113,12 @@ $(function() {
     /* Test that ensures when a new feed is loaded
      * by the loadFeed function that the content actually changes.
      */
+    /* Variables where the link of feeds be stored */
     let firstFeed,
         secondFeed;
 
-    /* I first check that tere are at least 2 feeds to load. */
-    it('has more than one feed', function() {
+    /* I first check that there are at least 2 feeds to load. */
+    it('another feed section exists', function() {
       expect(allFeeds.length).toBeGreaterThan(1);
     });
     /* At least 2 feeds exist we load them with the done() callback function
@@ -126,25 +127,20 @@ $(function() {
     beforeEach(function(done){
       loadFeed(0,function(){
         firstFeed = $('.entry-link');
-        /* load the second feeds */
+        done();
+      });
+      /* load the second feeds */
+      beforeEach(function(done) {
         loadFeed(1,function(){
           secondFeed = $('.entry-link');
           done();
         });
       });
     });
-    /* reload first feed of the list to let page in the same state as before
-     * the test.
-     */
-    afterEach(function(done){
-      loadFeed(0,function() {
-        done();
-      });
-    });
     /* We have 2 feeds loaded, we check that the first href attribute of each
      * feed are different and link to a different article.
      */
-    it('and a new and different feed has been loaded', function() {
+    it('and a new and different feed section has been loaded', function() {
       expect(firstFeed.attr('href')).not.toBe(secondFeed.attr('href'));
     });
   });
