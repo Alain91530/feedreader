@@ -1,48 +1,78 @@
 # Project Overview
 
-In this project you are given a web-based application that reads RSS feeds. The original developer of this application clearly saw the value in testing, they've already included [Jasmine](http://jasmine.github.io/) and even started writing their first test suite! Unfortunately, they decided to move on to start their own company and we're now left with an application with an incomplete test suite. That's where you come in.
+This project is a test suite for an existing application. The application is a web-based application that reads RSS feeds. It is given with [Jasmine](http://jasmine.github.io/) included and a first test in the test suite as well as the structure of the tests planned to be included.
 
+Format: ![Alt ""](feedreader-test.png)
 
-## Why this Project?
+## Tests to be done
+They are devided in 4 test suites
+- The RSS feed itself
+ - Checking the app has some feeds do load:
+    - The array containing them exists
+    - Each feed in it have an URL
+    - Eeach feed in it has a title
+- The menu of the application
+  - Check menu act as expected
+    - Default state of the menu is hidden
+    - First click on the menu logo makes it appear
+    - Second makes it disapear
+- The first feed of the menu
+  - Check that this feed is loads properly and is not empty
+- Being able to load another entry.
+  - Check other feeds acts as expected
+    - Check that we have more than one feed entry in the menu
+    - Load another entry and check a different one is displayed.
 
-Testing is an important part of the development process and many organizations practice a standard of development known as "test-driven development". This is when developers write tests first, before they ever start developing their application. All the tests initially fail and then they start writing application code to make these tests pass.
+## What has been done
+- Document myself about JavaScript Testing
+  - Udacity [course](https://www.udacity.com/course/ud549)
+  - [Jasmine documentation](http://jasmine.github.io)
+- Understand how the application works
+  - index.html
+  - Css file to get how the menu works
+  - app.js to see how feeds are loaded and displayed
+- Write the tests
+  - Add comments to spec/feedreader.js to configure eslinter and avoid linting errors for:
+    - Global variables defined in other files
+    - functions defined in other files
+    - Use of jQuery
+  - Write tests
+    - RSS Feeds
+      - check the url property of each element of allFeeds is defined
+      - use the length of its value to be sure it has an initial value
+      - check the name property of each element of allFeeds is defined
+      - use the length ot is value to be sure it has an initial value
+    - Menu
+      - Check the body of the html as the menu-hidden class
+      - simulate a click on the menu logo and check the menu-hidden class isn't there anymore
+      - simulate a second click on the menu and check the class is back
+    - First feed of the menu
+      - Load the contents of the feed with a callback function because of the asychonous aspect of the function of the Google API.
+      - Check the length of the entry class to be sure something has been loaded and displayed.
+    - Loading a different feed
+      - Check we have at least one different feed to load using the length of allFeeds array
+      - Load the first feed with a callback function (asynchronous) and temporarly store the .entry-link elements then load the second feed.
+      - Check the first url provided by each loaded feed is different using the jQuery .attr''href') .
+- Replace the http with https in the link and script tags to allow running the project on servers like github.io.
 
-Whether you work in an organization that uses test-driven development or in an organization that uses tests to make sure future feature development doesn't break existing features, it's an important skill to have!
+## Running the project
+Clone this repository or dowload the compressed files.
+Once done you should have a directory and file stucture looking like that:
+- My project directory
+    - css
+      - icomoon.css
+      - normalize.css
+      - style.css
+    - fonts
+    - jasmine
+      - lib
+      - spec
+        - feedreader.js
+      - js
+        - app.js
+      - index.html
 
+All in the fonts and lib directory is provided, no need to change. The specific files of the projects are index.html, style.css and feedreader.js  
+To run the project just load index.css in your browser. And scroll down to see the result of the tests.
 
-## What will I learn?
-
-You will learn how to use Jasmine to write a number of tests against a pre-existing application. These will test the underlying business logic of the application as well as the event handling and DOM manipulation.
-
-
-## How will this help my career?
-
-* Writing effective tests requires analyzing multiple aspects of an application including the HTML, CSS and JavaScript - an extremely important skill when changing teams or joining a new company.
-* Good tests give you the ability to quickly analyze whether new code breaks an existing feature within your codebase, without having to manually test all of the functionality.
-
-
-# How will I complete this project?
-
-Review the Feed Reader Testing [Project Rubric](https://review.udacity.com/#!/projects/3442558598/rubric)
-
-1. ~~Take the JavaScript Testing [course](https://www.udacity.com/course/ud549)~~  
-2. ~~Download the [required project assets](http://github.com/udacity/frontend-nanodegree-feedreader).~~  
-3. ~~Review the functionality of the application within your browser.~~  
-4. ~~Explore the application's HTML (**./index.html**), CSS (**./css/style.css**) and JavaScript (**./js/app.js**) to gain an understanding of how it works.~~  
-5. ~~Explore the Jasmine spec file in **./jasmine/spec/feedreader.js** and review the [Jasmine documentation](http://jasmine.github.io).~~  
-6. ~~Edit the `allFeeds` variable in **./js/app.js** to make the provided test fail and see how Jasmine visualizes this failure in your application.~~  
-7. ~~Return the `allFeeds` variable to a passing state.~~  
-8. ~~Write a test that loops through each feed in the `allFeeds` object and ensures it has a URL defined and that the URL is not empty.~~  
-9. ~~Write a test that loops through each feed in the `allFeeds` object and ensures it has a name defined and that the name is not empty.~~  
-10. ~~Write a new test suite named `"The menu"`.~~  
-11. ~~Write a test that ensures the menu element is hidden by default. You'll have to analyze the HTML and the CSS to determine how we're performing the hiding/showing of the menu element.~~  
-12. ~~Write a test that ensures the menu changes visibility when the menu icon is clicked. This test should have two expectations: does the menu display when clicked and does it hide when clicked again.~~
-13. ~~Write a test suite named `"Initial Entries"`.~~  
-14. ~~Write a test that ensures when the `loadFeed` function is called and completes its work, there is at least a single `.entry` element within the `.feed` container.~~
-15. ~~Write a test suite named `"New Feed Selection"`.~~
-16. ~~Write a test that ensures when a new feed is loaded by the `loadFeed` function that the content actually changes.~~  
-17. ~~No test should be dependent on the results of another.~~
-18. ~~Callbacks should be used to ensure that feeds are loaded before they are tested.~~
-19. ~~Implement error handling for undefined variables and out-of-bound array access.~~
-20. When complete - all of your tests should pass.
-21. Write a README file detailing all steps required to successfully run the application. If you have added additional tests (for Udacious Test Coverage),  provide documentation for what these future features are and what the tests are checking for.
+Or you can also just run it by clicking [here](https://alain91530.github.io/projects/feedreader/index.html)

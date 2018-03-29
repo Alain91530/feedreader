@@ -12,7 +12,7 @@
  * use of. It also uses the Handlebars templating library and
  * jQuery.
  */
-
+ 
 // The names and URLs to all of the feeds we'd like available.
 let allFeeds = [
   {
@@ -27,9 +27,6 @@ let allFeeds = [
   }, {
     name: 'Linear Digressions',
     url: 'http://feeds.feedburner.com/udacity-linear-digressions'
-  }, {
-    name: 'test',
-    url: 'test'
   }
 ];
 
