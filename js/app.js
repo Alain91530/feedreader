@@ -1,4 +1,9 @@
+/*******************************************************************************
+			Comments for eslint settings
+*******************************************************************************/
 /*eslint-env jquery*/
+/*eslint indent: ["error", 2, { "VariableDeclarator": 2 }]*/
+/******************************************************************************/
 
 /* app.js
  *
@@ -50,7 +55,7 @@ function loadFeed(id, cb) {
       feedName = allFeeds[id].name;
 
   $.ajax({
-    type: "POST",
+    type: 'POST',
     url: 'https://rsstojson.udacity.com/parseFeed',
     data: JSON.stringify({url: feedUrl}),
     contentType:'application/json',
@@ -102,12 +107,12 @@ $(function() {
       feedId = 0,
       menuIcon = $('.menu-icon-link');
 
-    /* Loop through all of our feeds, assigning an id property to
-     * each of the feeds based upon its index within the array.
-     * Then parse that feed against the feedItemTemplate (created
-     * above using Handlebars) and append it to the list of all
-     * available feeds within the menu.
-     */
+  /* Loop through all of our feeds, assigning an id property to
+   * each of the feeds based upon its index within the array.
+   * Then parse that feed against the feedItemTemplate (created
+   * above using Handlebars) and append it to the list of all
+   * available feeds within the menu.
+   */
   allFeeds.forEach(function(feed) {
     feed.id = feedId;
     feedList.append(feedItemTemplate(feed));
