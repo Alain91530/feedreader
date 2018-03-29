@@ -117,7 +117,7 @@ $(function() {
         secondFeed;
 
     /* I first check that tere are at least 2 feeds to load. */
-    it('more than one feed exists', function() {
+    it('has more than one feed', function() {
       expect(allFeeds.length).toBeGreaterThan(1);
     });
     /* At least 2 feeds exist we load them with the done() callback function
@@ -128,15 +128,23 @@ $(function() {
         firstFeed = $('.entry-link');
         /* load the second feeds */
         loadFeed(1,function(){
+          secondFeed = $('.entry-link');
           done();
         });
+      });
+    });
+    /* reload first feed of the list to let page in the same state as before
+     * the test.
+     */
+    afterEach(function(done){
+      loadFeed(0,function() {
+        done();
       });
     });
     /* We have 2 feeds loaded, we check that the first href attribute of each
      * feed are different and link to a different article.
      */
-    secondFeed = $('.entry-link');
-    it('loaded a new and different feed has been loaded', function() {
+    it('and a new and different feed has been loaded', function() {
       expect(firstFeed.attr('href')).not.toBe(secondFeed.attr('href'));
     });
   });
