@@ -73,7 +73,7 @@ Once done you should have a directory and file stucture looking like that:
       - index.html
 
 All in the fonts and lib directory is provided, no need to change. The specific files of the projects are index.html, style.css and feedreader.js  
-To run the project just load index.css in your browser. And scroll down to see the result of the tests.
+To run the project just load index.html in your browser. And scroll down to see the result of the tests.
 
 Or you can also just run it by clicking [here](https://alain91530.github.io/projects/feedreader/index.html)
 
