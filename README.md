@@ -76,3 +76,6 @@ All in the fonts and lib directory is provided, no need to change. The specific 
 To run the project just load index.css in your browser. And scroll down to see the result of the tests.
 
 Or you can also just run it by clicking [here](https://alain91530.github.io/projects/feedreader/index.html)
+
+## Author
+Alain Cadenat
