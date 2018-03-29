@@ -1,9 +1,10 @@
 /*******************************************************************************
 			Comments for eslint setting
 *******************************************************************************/
-/* global allFeeds:true loadFeed*/
-/* eslint no-undef: "error" */
-/* eslint-env jquery*/
+/* global allFeeds:true loadFeed                                              */
+/* eslint no-undef: "error"                                                   */
+/* eslint indent: ["error", 2, { "VariableDeclarator": 2 }]                   */
+/* eslint-env jquery                                                          */
 /******************************************************************************/
 
 /* feedreader.js
@@ -33,7 +34,6 @@ $(function() {
       expect(allFeeds).toBeDefined();
       expect(allFeeds.length).not.toBe(0);
     });
-
 
     /* Test that loops through each feed
      * in the allFeeds object and ensures it has a URL defined
@@ -88,27 +88,56 @@ $(function() {
   });
   /* Test suite for the "Initial Entries" */
   describe('Initial Entries', function() {
-    /*   TODO: Write a test that ensures when the loadFeed
-     * function is called and completes its work, there is at least
-     * a single .entry element within the .feed container.
-     * Remember, loadFeed() is asynchronous so this test will require
-     * the use of Jasmine's beforeEach and asynchronous done() function.
+    /* Test that ensures when the loadFeed function is called and completes
+     * its work, there is at least single .entry element within the .feed
+     * container.
+     * loadFeed() is asynchronous so this I use beforeEach and asynchronous
+     * done() callback function.
      */
     beforeEach(function(done){
       loadFeed(0,function (){
         done();
       });
-      expect();
     });
-
+    /* Get elements with the .entry class and check the length to be sure at
+     * at least one element exists.
+     */
+    it('has at least one entry', function() {
+      let entries = $('.entry');
+      expect(entries.length).toBeGreaterThan(0);
+    });
   });
+
   /* Test suite to check "New Feed Selection" changes*/
   describe('New Feed Section', function() {
+    /* Test that ensures when a new feed is loaded
+     * by the loadFeed function that the content actually changes.
+     */
+    let firstFeed,
+        secondFeed;
 
-
-    /* TODO: Write a test that ensures when a new feed is loaded
-        * by the loadFeed function that the content actually changes.
-        * Remember, loadFeed() is asynchronous.
-        */
+    /* I first check that tere are at least 2 feeds to load. */
+    it('more than one feed exists', function() {
+      expect(allFeeds.length).toBeGreaterThan(1);
+    });
+    /* At least 2 feeds exist we load them with the done() callback function
+     * and store the list of links elements of the first one in firstFeed.
+     */
+    beforeEach(function(done){
+      loadFeed(0,function(){
+        firstFeed = $('.entry-link');
+        /* load the second feeds */
+        loadFeed(1,function(){
+          done();
+        });
+      });
+    });
+    /* We have 2 feeds loaded, we check that the first href attribute of each
+     * feed are different and link to a different article.
+     */
+    secondFeed = $('.entry-link');
+    it('loaded a new and different feed has been loaded', function() {
+      expect(firstFeed.attr('href')).not.toBe(secondFeed.attr('href'));
+    });
   });
 });
