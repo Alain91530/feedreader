@@ -109,69 +109,49 @@ $(function() {
 
   /* Test suite to check "New Feed Selection" changes*/
   describe('New Feed Section', function() {
-    /* Test that ensures when a new feed is loaded
-     * by the loadFeed function that the content actually changes.
-     */
-    /* Variables where the link of feeds be stored */
+
+    /* Variables where the html of feeds will be stored */
     let firstFeed,
         secondFeed;
-
     /* I first check that there are at least 2 feeds to load. */
     it('another feed section exists', function() {
       expect(allFeeds.length).toBeGreaterThan(1);
     });
+    /* Nested suite to avoid loading feeds twice with beforeEach
+     * Test that ensures when a new feed is loaded
+     * by the loadFeed function that the content actually changes.
+     */
+    describe('Load another feed', function() {
+
     /* At least 2 feeds exist we load them with the done() callback function
      * and store the list of links elements of the first one in firstFeed.
      */
-    beforeEach(function(done){
+      beforeEach(function(done){
       /* Load second feed of allFeeds array with a callback which will
        * reload the first feed of the array
        */
-      loadFeed(1,function(){
+        loadFeed(1,function(){
         // Wait till it's done and Store the loaded feed for future testing
-        firstFeed = $('.feed').html();
-        /* load the first feeds of allFeeds with a call back function waiting
+          firstFeed = $('.feed').html();
+          /* load the first feeds of allFeeds with a call back function waiting
          * for the feed to be loaded.
          * Doing in this order will let the page in the same state as
          * before testing
          */
-        loadFeed(0, function(){
+          loadFeed(0, function(){
           // wait till it's done
           // Store the loaded feed for future testing
-          secondFeed = $('.feed').html();
-          done();
+            secondFeed = $('.feed').html();
+            done();
+          });
         });
       });
-    });
-    /* We have 2 feeds loaded, we check that the html content of each
+      /* We have 2 feeds loaded, we check that the html content of each
      * feed are different.
      */
-    it('and a new and different feed section has been loaded', function() {
-      expect(firstFeed).not.toBe(secondFeed);
+      it('feed section has been loaded and is different', function() {
+        expect(firstFeed).not.toBe(secondFeed);
+      });
     });
   });
-  /*
-   * The full monty:
-   *  - open the menu
-   *  - click on a new feed
-   *  - load the new feed
-   *  - check that the new feed is loaded
-   */
-
-/*  describe('Choose and load feed in the menu', function() {
-    it('menu is clicked and shown', function() {
-      /* Simulate the first click and check state of menu */
-/*      $('.menu-icon-link').click();
-      expect($('body').hasClass('menu-hidden')).toBe(false);
-    });
-    it('menu has more than 1 item', function() {
-      expect(allFeeds.length).toBeGreaterThan(1);
-    });
-    it('item in the menu is clicked', function() {
-      let menufeeds = $('.feed-list li a');
-      let choosenfeed = menufeeds[menufeeds.length-1];
-      choosenfeed.click();
-      expect((true)).toBe(true);
-    });
-  }); */
 });
