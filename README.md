@@ -51,8 +51,9 @@ They are devided in 4 test suites
       - Check the length of the entry class to be sure something has been loaded and displayed.
     - Loading a different feed
       - Check we have at least one different feed to load using the length of allFeeds array
-      - Load the first feed with a callback function (asynchronous) and temporarly store the .entry-link elements then load the second feed.
-      - Check the first url provided by each loaded feed is different using the jQuery .attr''href') .
+      - Load a different feed.
+        - Load the first feed with a callback function (asynchronous) and temporarly store the html of this feed then load the second feed.
+        - Check the html of each loaded feed is different.
 - Replace the http with https in the link and script tags to allow running the project on servers like github.io.
 
 ## Running the project
