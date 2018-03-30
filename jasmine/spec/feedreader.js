@@ -98,8 +98,8 @@ $(function() {
         done();
       });
     });
-    /* Get elements with the .entry class and check the length to be sure at
-     * at least one element exists.
+    /* Get elements with the .entry class which are child of the .feed container
+     * and check the length to be sure at least one element exists.
      */
     it('has at least one entry', function() {
       let entries = $('.feed .entry');
