@@ -83,7 +83,6 @@ $(function() {
       /* Simulate second click and check state of menu */
       $('.menu-icon-link').click();
       expect($('body').hasClass('menu-hidden')).toBe(true);
-
     });
   });
   /* Test suite for the "Initial Entries" */
@@ -103,7 +102,7 @@ $(function() {
      * at least one element exists.
      */
     it('has at least one entry', function() {
-      let entries = $('.entry');
+      let entries = $('.feed .entry');
       expect(entries.length).toBeGreaterThan(0);
     });
   });
@@ -125,23 +124,54 @@ $(function() {
      * and store the list of links elements of the first one in firstFeed.
      */
     beforeEach(function(done){
-      loadFeed(0,function(){
-        firstFeed = $('.entry-link');
-        done();
-      });
-      /* load the second feeds */
-      beforeEach(function(done) {
-        loadFeed(1,function(){
-          secondFeed = $('.entry-link');
+      /* Load second feed of allFeeds array with a callback which will
+       * reload the first feed of the array
+       */
+      loadFeed(1,function(){
+        // Wait till it's done and Store the loaded feed for future testing
+        firstFeed = $('.feed').html();
+        /* load the first feeds of allFeeds with a call back function waiting
+         * for the feed to be loaded.
+         * Doing in this order will let the page in the same state as
+         * before testing
+         */
+        loadFeed(0, function(){
+          // wait till it's done
+          // Store the loaded feed for future testing
+          secondFeed = $('.feed').html();
           done();
         });
       });
     });
-    /* We have 2 feeds loaded, we check that the first href attribute of each
-     * feed are different and link to a different article.
+    /* We have 2 feeds loaded, we check that the html content of each
+     * feed are different.
      */
     it('and a new and different feed section has been loaded', function() {
-      expect(firstFeed.attr('href')).not.toBe(secondFeed.attr('href'));
+      expect(firstFeed).not.toBe(secondFeed);
     });
   });
+  /*
+   * The full monty:
+   *  - open the menu
+   *  - click on a new feed
+   *  - load the new feed
+   *  - check that the new feed is loaded
+   */
+
+/*  describe('Choose and load feed in the menu', function() {
+    it('menu is clicked and shown', function() {
+      /* Simulate the first click and check state of menu */
+/*      $('.menu-icon-link').click();
+      expect($('body').hasClass('menu-hidden')).toBe(false);
+    });
+    it('menu has more than 1 item', function() {
+      expect(allFeeds.length).toBeGreaterThan(1);
+    });
+    it('item in the menu is clicked', function() {
+      let menufeeds = $('.feed-list li a');
+      let choosenfeed = menufeeds[menufeeds.length-1];
+      choosenfeed.click();
+      expect((true)).toBe(true);
+    });
+  }); */
 });
